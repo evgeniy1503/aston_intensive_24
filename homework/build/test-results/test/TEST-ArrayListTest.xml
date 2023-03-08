@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ArrayListTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-03-08T08:21:18" hostname="evgeniy-ubuntu" time="0.04">
+  <properties/>
+  <testcase name="cleanTest()" classname="ArrayListTest" time="0.029"/>
+  <testcase name="quickSortTest()" classname="ArrayListTest" time="0.001"/>
+  <testcase name="addTest()" classname="ArrayListTest" time="0.001"/>
+  <testcase name="getTest()" classname="ArrayListTest" time="0.003"/>
+  <testcase name="removeTest()" classname="ArrayListTest" time="0.0"/>
+  <testcase name="sortTest()" classname="ArrayListTest" time="0.0"/>
+  <testcase name="setTest()" classname="ArrayListTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
