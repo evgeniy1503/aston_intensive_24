@@ -1,7 +1,8 @@
 package org.example.arraylist;
 
-
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
  * ArrayList is the data structure that is based on an array. This array stores in itself elements of type T.
@@ -32,6 +33,36 @@ public class ArrayList<T extends Comparable<T>> {
 
         array[size++] = element;
         return true;
+    }
+
+    /**
+     * @param index is the number of the position where the new element should be written
+     * @param element is an object that will be added to the index position
+     */
+    public final void add(final int index, final T element) {
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (size == 0 || index == size) {
+            add(element);
+        } else if (array.length == size) {
+            final Object[] tempArray = array;
+
+            array = new Object[this.size() * 2];
+
+            System.arraycopy(tempArray, 0, array, 0, index);
+            System.arraycopy(tempArray, index, array, index + 1, size() - index);
+
+            set(index, element);
+            size++;
+        } else {
+            final Object[] tempArray = array;
+
+            System.arraycopy(tempArray, 0, array, 0, index + 1);
+            System.arraycopy(tempArray, index, array, index + 1, size() - index);
+            set(index, element);
+            size++;
+        }
     }
 
     /**
@@ -124,6 +155,14 @@ public class ArrayList<T extends Comparable<T>> {
 
 
     /**
+     * @return instance of the Iterator type
+     */
+    public final Iterator<T> iterator() {
+        return new ElementsIterator();
+    }
+
+
+    /**
      * @param array the array to be sorted by the quick sort method
      * @param from is the index of the beginning of the array to be sorted
      * @param to is the index of the last element of the array
@@ -166,6 +205,47 @@ public class ArrayList<T extends Comparable<T>> {
             }
         }
         return leftIndex;
+    }
+
+    private class ElementsIterator implements Iterator<T> {
+
+        private static final int LAST_IS_NOT_SET = -1;
+        private int index;
+        private int lastIndex = -1;
+
+        ElementsIterator() {
+            this(0);
+        }
+
+        ElementsIterator(final int index) {
+            this.index = index;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return ArrayList.this.size() > index;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            lastIndex = index++;
+            return ArrayList.this.get(lastIndex);
+        }
+
+
+        @Override
+        public void remove() {
+            if (lastIndex == LAST_IS_NOT_SET) {
+                throw new IllegalStateException();
+            }
+            ArrayList.this.remove(lastIndex);
+            index--;
+            lastIndex = LAST_IS_NOT_SET;
+        }
+
     }
 
 }

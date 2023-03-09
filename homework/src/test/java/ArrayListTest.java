@@ -2,6 +2,10 @@ import org.example.arraylist.ArrayList;
 
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
+import java.util.ListIterator;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -18,6 +22,19 @@ public class ArrayListTest {
 
         assertThat(array.size()).isEqualTo(3);
         assertThat(array.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void addOfIndexTest() {
+        array.add("1");
+        array.add("2");
+        array.add("3");
+
+        array.add(1, "5");
+
+        assertThat(array.size()).isEqualTo(4);
+        assertThat(array.get(1)).isEqualTo("5");
+        assertThat(array.get(3)).isEqualTo("3");
     }
 
     @Test
@@ -105,6 +122,26 @@ public class ArrayListTest {
         assertThat(numbers.get(0)).isEqualTo(1);
         assertThat(numbers.get(1)).isEqualTo(2);
         assertThat(numbers.get(numbers.size() - 1)).isEqualTo(6);
+
+    }
+
+    @Test
+    public void iteratorTest() {
+
+        array.add("1");
+        array.add("2");
+        array.add("4");
+        array.add("5");
+        array.add("6");
+
+        Iterator<String> iterator = array.iterator();
+
+        assertThat(array.size()).isEqualTo(5);
+
+        assertThat(iterator.next()).isEqualTo("1");
+        assertThat(iterator.next()).isEqualTo("2");
+        iterator.remove();
+        assertThat(array.size()).isEqualTo(4);
 
     }
 
