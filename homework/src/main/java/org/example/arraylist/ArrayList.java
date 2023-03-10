@@ -1,19 +1,28 @@
 package org.example.arraylist;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
  * ArrayList is the data structure that is based on an array. This array stores in itself elements of type T.
  * ArrayList methods add, remove, set new element, clean and checks that the array is empty.
- * @param <T> the object that should implement interface Comparable
+ * @param <T> the object that will be added in array
  */
-public class ArrayList<T extends Comparable<T>> {
+public class ArrayList<T> {
 
-    private Object[] array = new Object[10];
+    private Object[] array;
+
+    private final int CAPACITY = 10;
 
     private int size = 0;
+
+    public ArrayList() {
+        array = new Object[CAPACITY];
+    }
+
+    public ArrayList(int capacity) {
+        array = new Object[capacity];
+    }
 
     public final int size() {
         return this.size;
@@ -23,7 +32,7 @@ public class ArrayList<T extends Comparable<T>> {
      * @param element the object to be added to the end of the array
      * @return return true after successful added
      */
-    public final boolean add(final T element) {
+    public boolean add(T element) {
 
         if (array.length == size) {
             final Object[] oldArray = array;
@@ -39,7 +48,7 @@ public class ArrayList<T extends Comparable<T>> {
      * @param index is the number of the position where the new element should be written
      * @param element is an object that will be added to the index position
      */
-    public final void add(final int index, final T element) {
+    public void add(int index, T element) {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -71,7 +80,7 @@ public class ArrayList<T extends Comparable<T>> {
      * @throws if index size more than size array or index negative
      * that the exception is thrown IndexOutOfBoundsException
      */
-    public final T get(final int index) {
+    public T get(final int index) {
 
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -87,7 +96,7 @@ public class ArrayList<T extends Comparable<T>> {
      * @throws if index size more than size array or index negative
      * that the exception is thrown IndexOutOfBoundsException
      */
-    public final T set(final int index, final T element) {
+    public T set(int index, T element) {
 
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -104,7 +113,7 @@ public class ArrayList<T extends Comparable<T>> {
      * @throws if index size more than size array or index negative
      * that the exception is thrown IndexOutOfBoundsException
      */
-    public final T remove(final int index) {
+    public T remove(int index) {
 
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -122,7 +131,7 @@ public class ArrayList<T extends Comparable<T>> {
     /**
      * the method cleans the whole array and makes its size equal to 0
      */
-    public final void clear() {
+    public void clear() {
         array = new Object[1];
         size = 0;
     }
@@ -130,34 +139,15 @@ public class ArrayList<T extends Comparable<T>> {
     /**
      * @return true if array have size equal to 0 or false if array not empty
      */
-    public final boolean isEmpty() {
+    public boolean isEmpty() {
         return this.size == 0;
-    }
-
-    /**
-     * method realize sorting by selection
-     */
-    public final void sort() {
-        for (int i = 0; i < this.size(); i++) {
-            int pos = i;
-            T min = this.get(i);
-
-            for (int j = i + 1; j < this.size; j++) {
-                if (this.get(j).compareTo(min) < 0) {
-                    pos = j;
-                    min = this.get(j);
-                }
-            }
-            this.set(pos, this.get(i));
-            this.set(i, min);
-        }
     }
 
 
     /**
      * @return instance of the Iterator type
      */
-    public final Iterator<T> iterator() {
+    public Iterator<T> iterator() {
         return new ElementsIterator();
     }
 
@@ -168,7 +158,7 @@ public class ArrayList<T extends Comparable<T>> {
      * @param to is the index of the last element of the array
      * @param <T> the object that should implement interface Comparable
      */
-    public static <T extends Comparable<T>> void quickSort(ArrayList<T> array, int from, int to) {
+    public static <T extends Comparable> void quickSort(ArrayList<T> array, int from, int to) {
 
         if (from < to) {
             int divideIndex = partition(array, from, to);
@@ -180,7 +170,7 @@ public class ArrayList<T extends Comparable<T>> {
 
     }
 
-    private static <T extends Comparable<T>>  int partition(ArrayList<T> array, int from, int to) {
+    private static <T extends Comparable>  int partition(ArrayList<T> array, int from, int to) {
 
         int rightIndex = to;
         int leftIndex = from;

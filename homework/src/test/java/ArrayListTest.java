@@ -19,8 +19,16 @@ public class ArrayListTest {
         array.add("1");
         array.add("2");
         array.add("3");
+        array.add("4");
+        array.add("5");
+        array.add("6");
+        array.add("7");
+        array.add("8");
+        array.add("9");
+        array.add("10");
+        array.add("11");
 
-        assertThat(array.size()).isEqualTo(3);
+        assertThat(array.size()).isEqualTo(11);
         assertThat(array.isEmpty()).isFalse();
     }
 
@@ -86,23 +94,6 @@ public class ArrayListTest {
         array.set(0, "5");
 
         assertThat(array.get(0)).isEqualTo("5");
-    }
-
-    @Test
-    public void sortTest() {
-        ArrayList<Integer> numbers = new ArrayList<>();
-        numbers.add(3);
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(6);
-        numbers.add(4);
-        numbers.add(5);
-
-        numbers.sort();
-
-        assertThat(numbers.get(0)).isEqualTo(1);
-        assertThat(numbers.get(1)).isEqualTo(2);
-        assertThat(numbers.get(numbers.size() - 1)).isEqualTo(6);
     }
 
 
